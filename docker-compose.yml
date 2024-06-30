@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  main-server:
+    image: simple-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DOWNSTREAM_BASE_URL=http://downstream-server:8000
+    depends_on:
+      - downstream-server
+
+  downstream-server:
+    image: simple-server
+    build:
+      context: .
+      dockerfile: Dockerfile
